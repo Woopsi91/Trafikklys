@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+#trafficLight {
+  width: 120px;
+  background: black;
+  border-radius: 20px;
+  padding: 20px 0;
+  margin: 20px auto;
+  box-shadow: 0 0 20px rgba(0,0,0,0.6);
+}
+.circle {
+  width: 80px;
+  height: 80px;
+  margin: 15px auto;
+  border-radius: 50%;
+  opacity: 0.1;
+}
+.red { background: red; }
+.orange { background: orange; }
+.green { background: green; }
+.activate { opacity: 1; }
+
+
+
+
+</style>
+<body>
+ 
+ <div id="trafficLight">
+    <div id="red" class="red circle"></div>
+    <div id="orange" class="orange circle"></div>
+    <div id="green" class="green circle"></div>
+ </div>
+ 
+ 
+
+ <button onclick="activateLight('red')">Red</button>
+ <button onclick="activateLight('red','orange')">Red + Orange</button>
+ <button onclick="activateLight('green')">Green</button>
+
+ <script>
+    function activateLight(...ids){
+        ['red','orange','green'].forEach(id => {
+            document.getElementById(id).classList.remove("activate");
+        });
+
+        ids.forEach(id => {
+            document.getElementById(id).classList.add("activate");
+        });
+    }
+    function activateRed(){
+        activateLight('red');
+        setTimeout(activateRedAndOrange, 2000);
+    }
+    function activateRedAndOrange(){
+        activateLight('red','orange');
+        setTimeout(activateGreen, 1000)
+    }
+    function activateGreen(){
+        activateLight('green');
+        setTimeout(activateOrange, 3000)
+    }
+    function activateOrange(){
+        activateLight('orange');
+        setTimeout(activateRed, 1000);
+    }
+    function lightTimer(){
+        activateRed()
+       
+    }
+  
+    window.addEventListener("load", lightTimer);
+
+
+
+ </script>
+
+</body>
+</html>
